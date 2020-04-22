@@ -1,0 +1,33 @@
+[{
+    "id":"1",
+    "name":"Alejandro",
+    "firstName":"Fuentes",
+    "mail":"alesetneuf@gmail.com",
+    "password":"1234",
+    "token":""
+},
+{
+    "id":"2",
+    "name":"Jennifer",
+    "firstName":"Montesdeoca",
+    "mail":"jennirdg@gmail.com",
+    "password":"1234",
+    "token":""
+},
+{
+    "id":"3",
+    "name":"Diego",
+    "firstName":"Fuentes",
+    "mail":"diego@gmail.com",
+    "password":"1234",
+    "token":""
+},
+{
+    "id":"4",
+    "name":"Ivan",
+    "firstName":"Fuentes",
+    "mail":"ivan@gmail.com",
+    "password":"1234",
+    "token":""
+}
+]
