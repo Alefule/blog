@@ -29,8 +29,3 @@ exports.findUserByEmail = async (email) => {
     user = await database.findUserByEmail(email);
     return user;
 }
-
-exports.authenticate = async (req, res) =>{
-    isAuthenticate = await database.authenticate(req);
-    return isAuthenticate;
-}

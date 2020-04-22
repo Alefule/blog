@@ -1,9 +1,6 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const jwt = require('jsonwebtoken');
-const config = require('./configs/jwtConfig.js');
-const passport = require('passport');
 
 const sequelizeConexion = require('./database/conexions/sequalize');
 

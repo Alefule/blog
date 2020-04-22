@@ -57,8 +57,3 @@ exports.findUserByEmail = async (emailToFind) => {
     return await User.findOne({ where: {email: emailToFind} })
 }
 
-exports.authenticate = passport.authenticate("local", {
-    successRedirect: "/user/1",
-    failureRedirect: "/users",
-  });
-
