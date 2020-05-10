@@ -1,6 +1,5 @@
 const sequelize = require('../../database/conexions/sequalize');
-const passport = require('passport')
-const auth = require('../../auth/local');
+const auth = require('../../passport/local');
 
 const User = sequelize.User;
 
@@ -13,12 +12,9 @@ exports.showOneUser = async (idToFind) => {
 }
 
 exports.addUser = async (newUser) => {
-
-    console.log(newUser.password)
     try{
-        newUser.password = await auth.encryptPassword(newUser.password);
         await User.create(newUser)
-        return await User.findAll(); 
+        return await User.findOne({ where: {id: newUser.id} }); 
     }catch(e){
         console.log("Something was wrong " + e);
         return await User.findAll(); 
@@ -53,7 +49,11 @@ exports.updateUser = async (idToUpdate, reqToUpdate) =>{
     }
 }
 
-exports.findUserByEmail = async (emailToFind) => {
-    return await User.findOne({ where: {email: emailToFind} })
+exports.findUserByEmail = async (mailToFind) => {
+    return await User.findOne({ where: {mail: mailToFind} })
+}
+
+exports.findUserById = async (id) => {
+    return await User.findOne({ where: {id} })
 }
 

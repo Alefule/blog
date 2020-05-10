@@ -1,4 +1,5 @@
 const database = require('../database/msqlRepository/userMysqlRepository');
+const authController = require('./authController');
 
 exports.showUsers = async (req,res) => {
     users = await database.showUsers();
@@ -6,12 +7,14 @@ exports.showUsers = async (req,res) => {
 };
 
 exports.showOneUser = async (req,res) => {
-    user = await database.showOneUser(req.params.id);
+    user = await database.showOneUser(req.params.id || id);
     res.json(user);
 }
 
 exports.addUser = async (req, res) => {
-    addUserResponse = await database.addUser({...req.body});
+    user = {...req.body};
+    user.password = await authController.setPassword(user.password);
+    addUserResponse = await database.addUser(user);
     res.json(addUserResponse);
 }
 
@@ -27,5 +30,10 @@ exports.updateUser = async (req, res) =>{
 
 exports.findUserByEmail = async (email) => {
     user = await database.findUserByEmail(email);
+    return user;
+}
+
+exports.findUserById = async (id) => {
+    user = await database.findUserById(id);
     return user;
 }
