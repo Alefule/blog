@@ -55,9 +55,8 @@ exports.authenticateUser = async (req, res, next) => {
             exp: Date.now() + parseInt(process.env.JWT_LIFETIME),
             username: user.username
         };
-
         
-        const token = jwt.sign(JSON.stringify(payload), 'mysecret', {algorithm: 'HS256'});
+        const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET, {algorithm: process.env.JWT_ALGORITHM});
         return res.json({ data: { token } });
       }
       return res.status(422).json({"user": user})
