@@ -11,6 +11,8 @@ let {jwtStrategy} = require('./passport/jwt');
 const sequelizeConexion = require('./database/conexions/sequalize');
 
 const usersRouter = require('./routes/userRouter');
+const articlesRouter = require('./routes/articleRouter');
+const commentsRouter = require('./routes/commentRouter');
 
 //Settings
 app.set('port' , process.env.PORT || 3000);
@@ -27,6 +29,8 @@ app.use(passport.initialize());
 
 //Routes
 app.use('/api', usersRouter);
+app.use('/api', articlesRouter);
+app.use('/api', commentsRouter);
 
 app.listen(app.get('port'), () => {
     console.log(`server on port ${app.get('port')}`);

@@ -1,46 +1,43 @@
 module.exports = (sequelize, type) => {
-    const user = sequelize.define('user', {
+    const article = sequelize.define('user', {
         id:{
             type: type.INTEGER,
             autoIncrement: true,
             unique: true,
             primaryKey: true
         },
-        name: {
+        title: {
           type: type.STRING,
           field: 'name' // `first_name` column matches User.firstName
         },
-        firstname: {
+        subtitle: {
           type: type.STRING
         },
-        avatar: {
+        body: {
           type: type.STRING,
         },
-        mail: {
-          type: type.STRING,
+        date: {
+          type: type.DATE,
           unique: true,
         },
-        password: {
-          type: type.STRING
-        },
-        rol: {
-          type: type.STRING
+        id_user: {
+          type: type.INTEGER
         }
       }, {
         freezeTableName: true // Model tableName (`user`) will be the same as the model name
       });
 
-      user.associate = function(models) {
-        user.hasMany(models.article, {
+      article.associate = function(models) {
+        article.belongsTo(models.user, {
           foreignKey: 'id_user',
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE'
         });
-        user.hasMany(models.comment, {
-          foreignKey: 'id_user',
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE'
-        });
+        article.hasMany(models.user, {
+            foreignKey: 'id_article',
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+          });
       };
-      return user;
+      return article;
     };
