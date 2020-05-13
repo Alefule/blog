@@ -13,7 +13,7 @@ exports.showOneArticle = async (req,res) => {
 exports.addArticle = async (req, res) => {
     article = {...req.body};
     addArticleResponse = await database.addArticle(article);
-    res.json(addCommentResponse);
+    res.json(addArticleResponse);
 }
 
 exports.deleteArticle = async (req, res) => {

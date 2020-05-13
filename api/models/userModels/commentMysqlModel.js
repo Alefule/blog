@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    const comment = sequelize.define('user', {
+    const comment = sequelize.define('comment', {
         id:{
             type: type.INTEGER,
             autoIncrement: true,

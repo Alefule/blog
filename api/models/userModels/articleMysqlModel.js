@@ -1,5 +1,5 @@
 module.exports = (sequelize, type) => {
-    const article = sequelize.define('user', {
+    const article = sequelize.define('article', {
         id:{
             type: type.INTEGER,
             autoIncrement: true,
@@ -7,8 +7,7 @@ module.exports = (sequelize, type) => {
             primaryKey: true
         },
         title: {
-          type: type.STRING,
-          field: 'name' // `first_name` column matches User.firstName
+          type: type.STRING
         },
         subtitle: {
           type: type.STRING
