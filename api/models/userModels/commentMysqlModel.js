@@ -16,7 +16,7 @@ module.exports = (sequelize, type) => {
           type: type.INTEGER
         }
       }, {
-        freezeTableName: true // Model tableName (`user`) will be the same as the model name
+        freezeTableName: true // Model tableName will be the same as the model name
       });
 
       comment.associate = function(models) {

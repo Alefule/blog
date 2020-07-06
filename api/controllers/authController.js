@@ -2,19 +2,22 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
+const error_types = require('../controllers/errorController');
+
 exports.setPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 
 exports.validatePassword = (passwordToCompare, userPassword) => {
-    return bcrypt.compareSync(passwordToCompare, userPassword);
+    isValidPassword = bcrypt.compareSync(passwordToCompare, userPassword);
+    return isValidPassword;
 };
 
 exports.authorizeUser = async (req,res,next)=>{
   passport.authenticate('jwt', {session: false}, (err, user, info)=>{
     console.log("ejecutando *callback auth* de authenticate para estrategia jwt");
     if(info){ console.log("Entro por info"); 
-              return next(info)}
+              return next(new error_types.Error401(info.message))}
     if (err) {console.log("Entro por info");  
               return next(err); }
     if (!user) { return next(new error_types.Error403("You are not allowed to access.")); }
@@ -44,9 +47,11 @@ exports.authenticateUser = async (req, res, next) => {
     }
 
   return await passport.authenticate('local', { session: false },(err, userPassport) => {
-      if(err) {
-        return next(err);
+      if(err || !userPassport) {
+        err ? err : err = 'No athorized user';
+        return next(new error_types.Error401(err));
       }
+
       if(userPassport) {
 
         console.log("*** comienza generacion token*****");
@@ -59,7 +64,6 @@ exports.authenticateUser = async (req, res, next) => {
         const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET, {algorithm: process.env.JWT_ALGORITHM});
         return res.json({ data: { token } });
       }
-      return res.status(422).json({"user": user})
     })(req, res, next);
 }
 
